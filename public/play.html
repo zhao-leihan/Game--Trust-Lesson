@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>TechQuiz — Player</title>
+  <link rel="icon" href="/assets/logo/logo.webp" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .play-wrap {
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .play-logo {
+      height: 34px;
+      object-fit: contain;
+    }
+    .join-card {
+      margin: auto 0;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+    .join-mascot {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+    .input-group {
+      width: 100%;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .text-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      background: #ffffff;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 1.08rem;
+      font-weight: 700;
+      outline: none;
+    }
+    .text-input:focus {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+    }
+
+    /* Player HUD */
+    .p-hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+    .p-hud-name {
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .p-hud-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .p-hud-score {
+      text-align: right;
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: #6d28d9;
+    }
+
+    /* Answer Buttons */
+    .p-question-box {
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      font-weight: 700;
+      font-size: 1.02rem;
+      line-height: 1.4;
+    }
+    .p-options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      flex: 1;
+    }
+    .p-opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 18px;
+      border-radius: 16px;
+      border: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 800;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.1s ease;
+    }
+    .p-opt-btn:active {
+      transform: scale(0.97);
+    }
+    .p-opt-0 { background: linear-gradient(135deg, var(--opt-a), var(--opt-a-dark)); }
+    .p-opt-1 { background: linear-gradient(135deg, var(--opt-b), var(--opt-b-dark)); }
+    .p-opt-2 { background: linear-gradient(135deg, var(--opt-c), var(--opt-c-dark)); }
+    .p-opt-3 { background: linear-gradient(135deg, var(--opt-d), var(--opt-d-dark)); }
+
+    .p-shape {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    /* Center State Card */
+    .center-card {
+      margin: auto 0;
+      padding: 30px 22px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .result-banner {
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+    .res-correct {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #6ee7b7;
+    }
+    .res-wrong {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+    }
+    .ticket-voucher {
+      width: 100%;
+      padding: 20px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+      border: 2px dashed #7c3aed;
+      box-shadow: 0 10px 26px rgba(124, 58, 237, 0.16);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="app-shell">
+    <main class="play-wrap">
+      <!-- JOIN SCREEN -->
+      <section id="joinScreen" class="glass-card join-card">
+        <img src="/assets/logo/logo-full.webp" alt="Logo" class="play-logo" />
+        <img src="/assets/mascot/hello.webp" alt="Mascot" class="join-mascot float-mascot" />
+        <h1 style="font-size:1.55rem;font-weight:900;">Gabung TechQuiz!</h1>
+
+        <div class="input-group">
+          <label for="pinInput">Room PIN</label>
+          <input id="pinInput" type="tel" maxlength="6" class="text-input" placeholder="Contoh: 123456" />
+        </div>
+        <div class="input-group">
+          <label for="nameInput">Nama Kamu</label>
+          <input id="nameInput" type="text" maxlength="18" class="text-input" placeholder="Masukkan nama panggilan" />
+        </div>
+
+        <button id="joinBtn" class="btn btn-success" style="width:100%;padding:15px;font-size:1.1rem;">
+          🚀 Masuk Quiz
+        </button>
+        <div id="joinError" style="color:#dc2626;font-size:0.9rem;font-weight:700;min-height:20px;"></div>
+      </section>
+
+      <!-- ACTIVE GAME SHELL -->
+      <section id="gameShell" class="hidden" style="display:flex;flex-direction:column;flex:1;">
+        <div class="glass-card p-hud">
+          <div>
+            <div class="p-hud-name" id="hudName">Player</div>
+            <div class="p-hud-sub" id="hudProgress">Lobby · Target 15/20 🎟️</div>
+          </div>
+          <div class="p-hud-score">
+            <div id="hudScore">0 pts</div>
+            <div class="p-hud-sub" id="hudCorrect">0 Benar</div>
+          </div>
+        </div>
+
+        <!-- LOBBY WAIT -->
+        <div id="pLobby" class="glass-card center-card">
+          <img src="/assets/mascot/hello.webp" alt="Mascot" class="join-mascot float-mascot" />
+          <h2 style="font-size:1.45rem;font-weight:900;">Kamu sudah masuk! 🎉</h2>
+          <p style="color:var(--text-muted);line-height:1.5;">
+            Lihat layar Mac di depan untuk melihat peserta lain dan menunggu host memulai quiz.
+          </p>
+          <span class="ticket-badge">🎟️ Jawab 15+ benar untuk Ticket!</span>
+        </div>
+
+        <!-- QUESTION BUTTONS -->
+        <div id="pQuestion" class="hidden" style="display:flex;flex-direction:column;flex:1;">
+          <div class="glass-card p-question-box">
+            <div style="display:flex;gap:8px;margin-bottom:8px;">
+              <span id="pDiffBadge" class="badge badge-easy">EASY</span>
+              <span id="pCatBadge" class="badge badge-category">AI</span>
+            </div>
+            <div id="pQuestionText"></div>
+          </div>
+          <div class="p-options-grid" id="pOptionsGrid"></div>
+        </div>
+
+        <!-- ANSWERED WAIT -->
+        <div id="pWait" class="glass-card center-card hidden">
+          <img src="/assets/mascot/knowledge.webp" alt="Mascot" class="join-mascot float-mascot" />
+          <h2 style="font-size:1.35rem;font-weight:900;">Jawaban Terkirim!</h2>
+          <p style="color:var(--text-muted);">Menunggu pemain lain atau waktu habis...</p>
+        </div>
+
+        <!-- REVEAL / LEADERBOARD -->
+        <div id="pResult" class="glass-card center-card hidden">
+          <img id="pResultMascot" src="/assets/mascot/happy.webp" alt="Mascot" class="join-mascot float-mascot" />
+          <div id="pResultBanner" class="result-banner res-correct">BENAR! +950 pts</div>
+          <div id="pRankInfo" style="font-size:1.1rem;font-weight:800;">Peringkat #1</div>
+          <div id="pTicketProgress" style="color:var(--text-muted);font-size:0.95rem;"></div>
+        </div>
+
+        <!-- FINISHED -->
+        <div id="pFinished" class="glass-card center-card hidden">
+          <img src="/assets/mascot/Done.webp" alt="Mascot" class="join-mascot float-mascot" />
+          <h2 style="font-size:1.6rem;font-weight:900;">Quiz Selesai!</h2>
+          <div id="pFinalStats" style="font-size:1.1rem;font-weight:800;"></div>
+          <div id="pTicketBox"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/play.js?v=3"></script>
+</body>
+</html>

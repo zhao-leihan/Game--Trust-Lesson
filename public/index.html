@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechQuiz Arena — AI, Blockchain, IoT & Crypto</title>
+  <link rel="icon" href="/assets/logo/logo.webp" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .portal-wrap {
+      max-width: 980px;
+      margin: auto;
+      padding: 36px 20px;
+      width: 100%;
+      text-align: center;
+    }
+    .portal-logo {
+      height: 64px;
+      object-fit: contain;
+      margin-bottom: 16px;
+    }
+    .portal-title {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .portal-sub {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 620px;
+      margin: 0 auto 36px;
+      line-height: 1.5;
+    }
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .role-card {
+      padding: 28px 22px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+    }
+    .role-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.55);
+    }
+    .role-icon {
+      font-size: 2.2rem;
+    }
+    .role-card h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+    .role-card p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      flex: 1;
+    }
+    .mascot-hero {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    .stats-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="app-shell">
+    <main class="portal-wrap">
+      <img src="/assets/logo/logo-full.webp" alt="Logo" class="portal-logo" />
+      <br />
+      <img src="/assets/mascot/hello.webp" alt="Mascot" class="mascot-hero float-mascot" />
+      <h1 class="portal-title">TechQuiz Arena</h1>
+      <p class="portal-sub">
+        Quiz cepat interaktif tentang <strong>AI, Blockchain, IoT, &amp; Crypto</strong>.
+        20 soal acak dari bank 100 pertanyaan (10 Easy, 9 Medium, 1 Ultimate).
+        Jawab benar <strong>15+</strong> untuk mendapatkan <strong>Ticket</strong>!
+      </p>
+
+      <div class="stats-strip">
+        <span class="badge badge-easy">10 Easy</span>
+        <span class="badge badge-medium">9 Medium</span>
+        <span class="badge badge-ultimate">1 Ultimate</span>
+        <span class="ticket-badge">🎟️ 15+ Benar = Ticket</span>
+      </div>
+
+      <div class="role-grid">
+        <div class="glass-card role-card">
+          <div class="role-icon">🖥️</div>
+          <h2>Mac Display (Host)</h2>
+          <p>Buka di layar Mac / proyektor untuk menampilkan QR Code, pertanyaan otomatis, timer, dan Leaderboard akhir.</p>
+          <a href="/host" class="btn btn-primary">Buka Layar Display</a>
+        </div>
+
+        <div class="glass-card role-card">
+          <div class="role-icon">📱</div>
+          <h2>Player (HP)</h2>
+          <p>Masuk sebagai peserta dari smartphone menggunakan PIN atau scan QR Code dari layar Mac.</p>
+          <a href="/play" class="btn btn-success">Gabung Quiz</a>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

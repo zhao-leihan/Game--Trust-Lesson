@@ -1,0 +1,196 @@
+:root {
+  --bg-dark: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.92);
+  --border-glass: rgba(124, 58, 237, 0.16);
+  --text-main: #1e1b4b;
+  --text-muted: #64748b;
+  --accent-primary: #7c3aed;
+  --accent-secondary: #6d28d9;
+  --accent-cyan: #7c3aed;
+  --accent-gold: #f59e0b;
+  --opt-a: #ef4444;
+  --opt-a-dark: #dc2626;
+  --opt-b: #3b82f6;
+  --opt-b-dark: #2563eb;
+  --opt-c: #f59e0b;
+  --opt-c-dark: #d97706;
+  --opt-d: #10b981;
+  --opt-d-dark: #059669;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: radial-gradient(circle at 10% 10%, #f3e8ff 0%, #ffffff 48%, #f5f3ff 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(124, 58, 237, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  box-shadow: 0 14px 36px rgba(109, 40, 217, 0.08);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.28);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.07);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  box-shadow: 0 8px 22px rgba(109, 40, 217, 0.28);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #9333ea, #6b21a8);
+  box-shadow: 0 8px 22px rgba(147, 51, 234, 0.26);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.btn-ghost {
+  background: #f5f3ff;
+  border: 1px solid rgba(124, 58, 237, 0.22);
+  color: #5b21b6;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: #ede9fe;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-easy {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-medium {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+
+.badge-ultimate {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #ffffff;
+  border: 1px solid #6d28d9;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+}
+
+.badge-category {
+  background: #f3e8ff;
+  color: #6d28d9;
+  border: 1px solid #d8b4fe;
+}
+
+.ticket-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.28);
+}
+
+/* Animations */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.92); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.float-mascot {
+  animation: floatSlow 3.2s ease-in-out infinite;
+}
+
+.pop-in {
+  animation: popIn 0.25s ease-out forwards;
+}
+
+.hidden {
+  display: none !important;
+}
